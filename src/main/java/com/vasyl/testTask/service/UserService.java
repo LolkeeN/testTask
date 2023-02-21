@@ -13,4 +13,7 @@ public interface UserService {
     void deleteUser(int id);
     User findById(int id);
     void updateUser(int id, UserDtoWithPassword userDto);
+
+    List<UserDto> findAllUsersPageable(Integer pageNo, Integer pageSize, String sortBy);
+
 }

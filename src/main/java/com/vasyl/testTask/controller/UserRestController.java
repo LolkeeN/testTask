@@ -74,6 +74,14 @@ public class UserRestController {
         userService.createUser(user);
     }
 
+    @GetMapping("/all/pagination")
+    public List<UserDto> getAllUsersPageable(@RequestParam(defaultValue = "0") Integer pageNo,
+                                          @RequestParam(defaultValue = "10") Integer pageSize,
+                                          @RequestParam(defaultValue = "id") String sortBy){
+        return userService.findAllUsersPageable(pageNo, pageSize, sortBy);
+
+    }
+
     private static String saveImageAndGetUploadDir(MultipartFile file, String fileName, User user) throws IOException {
         String uploadDir = "./user-photos/" + user.getId();
 
