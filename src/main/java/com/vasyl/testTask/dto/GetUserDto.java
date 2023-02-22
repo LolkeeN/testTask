@@ -8,13 +8,15 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class UserDto {
-    private int id;
+public class GetUserDto {
+    private Integer id;
+
     @NonNull
-    private String name;
+    private String username;
+
     @NonNull
     private String email;
-    private boolean enabled = true;
-    private String avatar;
+
+    private String avatarUrl;
 
 }

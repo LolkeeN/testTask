@@ -8,14 +8,11 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDtoWithPassword {
-    private int id;
+public class CreateUserDto {
     @NonNull
-    private String name;
+    private String username;
     @NonNull
     private String email;
     private String password;
-    private boolean enabled = true;
-    private String avatar;
 
 }

@@ -1,12 +1,16 @@
 package com.vasyl.testTask.service.impl;
 
-import com.vasyl.testTask.converters.UserMapper;
-import com.vasyl.testTask.dto.UserDto;
-import com.vasyl.testTask.dto.UserDtoWithPassword;
+import com.vasyl.testTask.dto.GetUserDto;
+import com.vasyl.testTask.dto.CreateUserDto;
 import com.vasyl.testTask.entity.User;
+import com.vasyl.testTask.entity.UserRole;
+import com.vasyl.testTask.entity.enums.Role;
 import com.vasyl.testTask.repository.UserRepository;
 import com.vasyl.testTask.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,24 +22,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class UserServiceImpl implements UserService {
+    @Autowired
     private UserRepository userRepository;
-    private UserMapper userMapper;
+
+    @Autowired
+    private ConversionService conversionService;
 
     @Override
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+    public List<GetUserDto> findAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(x -> conversionService.convert(x, GetUserDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void createUser(User user) {
-        userRepository.save(user);
-    }
-
-    @Override
-    public User createUser(UserDtoWithPassword userDto) {
-        User user = userMapper.toUser(userDto);
+    public User createUser(CreateUserDto userDto) {
+        User user = conversionService.convert(userDto, User.class);
+        UserRole userRole = new UserRole();
+        userRole.setRole(Role.USER);
+        user.setRoles(List.of(userRole));
         return userRepository.saveAndFlush(user);
     }
 
@@ -45,14 +52,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(int id) {
-        return userRepository.findById(id);
+    public GetUserDto findById(int id) {
+
+        User user = userRepository.findById(id);
+        return conversionService.convert(user, GetUserDto.class);
     }
 
     @Override
-    public void updateUser(int id, UserDtoWithPassword userDto) {
+    public void updateUser(int id, CreateUserDto userDto) {
         User user = userRepository.findById(id);
-        user.setName(userDto.getName());
+        user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         if (userDto.getPassword() != null) {
             user.setPassword(userDto.getPassword());
@@ -62,13 +71,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAllUsersPageable(Integer pageNo, Integer pageSize, String sortBy) {
+    public List<GetUserDto> findAllUsersPageable(Integer pageNo, Integer pageSize, String sortBy) {
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
 
         Page<User> pagedResult = userRepository.findAll(paging);
 
         if (pagedResult.hasContent()) {
-            return pagedResult.getContent().stream().map(x -> userMapper.toDto(x)).collect(Collectors.toList());
+            return pagedResult.getContent().stream()
+                    .map(x -> conversionService.convert(x, GetUserDto.class))
+                    .collect(Collectors.toList());
         } else {
             return new ArrayList<>();
         }

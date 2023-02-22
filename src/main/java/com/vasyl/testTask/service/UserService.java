@@ -1,24 +1,22 @@
 package com.vasyl.testTask.service;
 
-import com.vasyl.testTask.dto.UserDto;
-import com.vasyl.testTask.dto.UserDtoWithPassword;
+import com.vasyl.testTask.dto.GetUserDto;
+import com.vasyl.testTask.dto.CreateUserDto;
 import com.vasyl.testTask.entity.User;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> findAllUsers();
+    List<GetUserDto> findAllUsers();
 
-    void createUser(User user);
-
-    User createUser(UserDtoWithPassword userDto);
+    User createUser(CreateUserDto userDto);
 
     void deleteUser(int id);
 
-    User findById(int id);
+    GetUserDto findById(int id);
 
-    void updateUser(int id, UserDtoWithPassword userDto);
+    void updateUser(int id, CreateUserDto userDto);
 
-    List<UserDto> findAllUsersPageable(Integer pageNo, Integer pageSize, String sortBy);
+    List<GetUserDto> findAllUsersPageable(Integer pageNo, Integer pageSize, String sortBy);
 
 }
