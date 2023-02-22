@@ -2,6 +2,7 @@ package com.vasyl.testTask.controller;
 
 import com.vasyl.testTask.exceptions.AvatarContentReadException;
 import com.vasyl.testTask.exceptions.AvatarNotFoundException;
+import com.vasyl.testTask.exceptions.PasswordsNotEqualException;
 import com.vasyl.testTask.exceptions.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {AvatarContentReadException.class, UserNotFoundException.class, AvatarNotFoundException.class})
-    protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
+    @ExceptionHandler(value = {AvatarContentReadException.class, PasswordsNotEqualException.class})
+    protected ResponseEntity<Object> handleBadRequest(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+    @ExceptionHandler(value = { UserNotFoundException.class, AvatarNotFoundException.class, UserNotFoundException.class})
+    protected ResponseEntity<Object> handleNotFound(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
 }

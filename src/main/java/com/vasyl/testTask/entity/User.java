@@ -16,6 +16,8 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -40,7 +42,6 @@ public class User {
     @PrimaryKeyJoinColumn
     private Avatar avatar;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="user_id", referencedColumnName="id")
-    private List<UserRole> roles;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    private List<UserRole> roles = new ArrayList<>();
 }

@@ -1,13 +1,13 @@
 CREATE TABLE IF NOT EXISTS `users` (
 
     `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `username` varchar(20),
-    `email` varchar(50),
-    `password` varchar(20)
+    `username`  varchar(255) UNIQUE,
+    `email`  varchar(255) UNIQUE,
+    `password` varchar(255)
     );
 
-INSERT INTO users (username, email, password) values ("Vasyl", "bazelik777@gmail.com",
- "asd");
+INSERT INTO users (username, email, password) values ("Vasyl", "vasyl@test.com",
+ "$2a$10$8LtFPpMIaGm7HNO9FSHAHOoCMvl9L8FVwRdHgdTesrJ4GS..lgdV2");
 
 CREATE TABLE IF NOT EXISTS `avatar`(
     `user_id` int PRIMARY KEY,

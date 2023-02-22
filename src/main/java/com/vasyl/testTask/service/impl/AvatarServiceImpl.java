@@ -8,9 +8,7 @@ import com.vasyl.testTask.exceptions.UserNotFoundException;
 import com.vasyl.testTask.repository.AvatarRepository;
 import com.vasyl.testTask.repository.UserRepository;
 import com.vasyl.testTask.service.AvatarService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +24,7 @@ public class AvatarServiceImpl implements AvatarService {
     private UserRepository userRepository;
     @Autowired
     private ConversionService conversionService;
+
     @Override
     @Transactional
     public void createAvatar(AvatarDto avatarDto) {
