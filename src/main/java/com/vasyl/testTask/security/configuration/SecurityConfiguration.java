@@ -63,13 +63,10 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Enable CORS and disable CSRF
         http.cors().and().csrf().disable();
 
-        // Set session management to stateless
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        // Set unauthorized requests exception handler
         http.exceptionHandling(
                 (exceptions) ->
                         exceptions

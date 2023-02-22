@@ -1,5 +1,6 @@
 package com.vasyl.testTask.controller;
 
+import com.vasyl.testTask.aspects.annotations.CurrentUserId;
 import com.vasyl.testTask.dto.AvatarDto;
 import com.vasyl.testTask.exceptions.AvatarContentReadException;
 import com.vasyl.testTask.service.AvatarService;
@@ -9,9 +10,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +30,8 @@ public class AvatarController {
     private final AvatarService avatarService;
 
     @PostMapping("/{userId}")
-    public void upload(@PathVariable Integer userId, @RequestParam("avatar") MultipartFile avatar) {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public void upload(@CurrentUserId Integer userId, @RequestParam("avatar") MultipartFile avatar) {
         AvatarDto avatarDto = new AvatarDto();
 
         avatarDto.setUserId(userId);
@@ -41,7 +43,8 @@ public class AvatarController {
 
 
     @GetMapping("/{userId}")
-    public ResponseEntity<Resource> download(@PathVariable Integer userId) throws IOException {
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Resource> download(@CurrentUserId Integer userId) {
 
         AvatarDto avatarDto = avatarService.get(userId);
 
@@ -62,7 +65,7 @@ public class AvatarController {
     }
 
     @DeleteMapping("/{userId}")
-    public void deleteAvatar(@PathVariable Integer userId) {
+    public void deleteAvatar(@CurrentUserId Integer userId) {
         avatarService.delete(userId);
     }
 
