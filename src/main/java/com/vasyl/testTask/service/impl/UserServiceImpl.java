@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
         Page<User> pagedResult = userRepository.findAll(paging);
 
-        if(pagedResult.hasContent()) {
+        if (pagedResult.hasContent()) {
             return pagedResult.getContent().stream().map(x -> userMapper.toDto(x)).collect(Collectors.toList());
         } else {
             return new ArrayList<>();
