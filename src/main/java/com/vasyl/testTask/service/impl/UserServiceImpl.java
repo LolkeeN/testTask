@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
                 () -> new UserNotFoundException("No user found")
         );
 
-        if (!Objects.equals(user.getPassword(), encoder.encode(dto.getOldPassword()))) {
+        if (!encoder.matches(dto.getOldPassword(), user.getPassword())) {
             throw new PasswordsNotEqualException("You've entered wrong old password");
         }
         if (!Objects.equals(dto.getNewPassword(), dto.getNewPasswordConfirmation())) {
