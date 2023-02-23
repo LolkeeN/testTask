@@ -3,7 +3,6 @@ package com.vasyl.testTask.security.userdetails;
 import com.vasyl.testTask.entity.User;
 import com.vasyl.testTask.entity.UserRole;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -56,7 +55,7 @@ public class CustomUserDetails implements UserDetails {
     }
 
 
-    private Collection<GrantedAuthority> mapRolesToAuthorities(List<UserRole> roles){
+    private Collection<GrantedAuthority> mapRolesToAuthorities(List<UserRole> roles) {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRole().name()))
                 .collect(Collectors.toList());

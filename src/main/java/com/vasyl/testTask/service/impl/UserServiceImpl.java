@@ -1,8 +1,8 @@
 package com.vasyl.testTask.service.impl;
 
 import com.vasyl.testTask.dto.ChangePasswordDto;
-import com.vasyl.testTask.dto.GetUserDto;
 import com.vasyl.testTask.dto.CreateUserDto;
+import com.vasyl.testTask.dto.GetUserDto;
 import com.vasyl.testTask.entity.User;
 import com.vasyl.testTask.entity.UserRole;
 import com.vasyl.testTask.entity.enums.Role;
@@ -17,7 +17,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

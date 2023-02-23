@@ -19,7 +19,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     protected ResponseEntity<Object> handleBadRequest(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
-    @ExceptionHandler(value = { UserNotFoundException.class, AvatarNotFoundException.class, UserNotFoundException.class})
+
+    @ExceptionHandler(value = {UserNotFoundException.class, AvatarNotFoundException.class, UserNotFoundException.class})
     protected ResponseEntity<Object> handleNotFound(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }

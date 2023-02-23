@@ -2,11 +2,10 @@ package com.vasyl.testTask.controller;
 
 import com.vasyl.testTask.converters.UserToGetUserDtoConverter;
 import com.vasyl.testTask.dto.ChangePasswordDto;
-import com.vasyl.testTask.dto.GetUserDto;
 import com.vasyl.testTask.dto.CreateUserDto;
+import com.vasyl.testTask.dto.GetUserDto;
 import com.vasyl.testTask.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,7 +61,7 @@ public class AdminController {
 
     @PutMapping("/{id}/password")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void changePassword(@PathVariable Integer id, @RequestBody ChangePasswordDto userDto){
+    public void changePassword(@PathVariable Integer id, @RequestBody ChangePasswordDto userDto) {
 
     }
 }

@@ -1,8 +1,6 @@
 package com.vasyl.testTask.security.controllers;
 
 import com.vasyl.testTask.dto.CreateUserDto;
-import com.vasyl.testTask.dto.GetUserDto;
-import com.vasyl.testTask.entity.User;
 import com.vasyl.testTask.security.dto.LoginDto;
 import com.vasyl.testTask.security.userdetails.CustomUserDetails;
 import com.vasyl.testTask.service.UserService;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.time.Instant;
 
-import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
 
 @RestController

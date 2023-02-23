@@ -4,14 +4,11 @@ import com.vasyl.testTask.aspects.annotations.CurrentUserId;
 import com.vasyl.testTask.entity.User;
 import com.vasyl.testTask.exceptions.UserNotFoundException;
 import com.vasyl.testTask.repository.UserRepository;
-import com.vasyl.testTask.service.UserService;
 import lombok.SneakyThrows;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.SoftException;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
-import java.util.Optional;
 
 @Aspect
 @Component

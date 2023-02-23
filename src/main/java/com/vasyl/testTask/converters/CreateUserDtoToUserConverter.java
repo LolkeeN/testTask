@@ -1,7 +1,6 @@
 package com.vasyl.testTask.converters;
 
 import com.vasyl.testTask.dto.CreateUserDto;
-import com.vasyl.testTask.dto.GetUserDto;
 import com.vasyl.testTask.entity.User;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
