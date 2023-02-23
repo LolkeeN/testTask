@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import java.util.Objects;
 
 @RestController
@@ -24,7 +26,7 @@ public class UserController {
 
     @PutMapping("/email")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public void updateEmail(@CurrentUserId Integer userId, @RequestBody String newEmail) {
+    public void updateEmail(@CurrentUserId Integer userId, @Email @RequestBody String newEmail) {
         userService.updateEmail(userId, newEmail);
     }
 

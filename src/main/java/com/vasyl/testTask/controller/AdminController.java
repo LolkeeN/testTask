@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -40,7 +41,7 @@ public class AdminController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void changeUser(@PathVariable int id, @RequestBody CreateUserDto userDto) {
+    public void changeUser(@PathVariable int id, @Valid @RequestBody CreateUserDto userDto) {
         userService.updateUser(id, userDto);
     }
 
