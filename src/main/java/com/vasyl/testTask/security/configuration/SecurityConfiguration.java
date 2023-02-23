@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -77,6 +78,8 @@ public class SecurityConfiguration {
                 .requestMatchers("/users/auth/**")
                 .permitAll()
                 .requestMatchers("/error")
+                .permitAll()
+                .requestMatchers(HttpMethod.GET, "/users/avatar/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
